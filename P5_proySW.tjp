@@ -198,7 +198,7 @@ task WMGame "Web & Mobile Game" {
     task tCloudTests "Cloud Platform Testing" {
       effort 5d
       allocate dev1, dev4
-      depends WMGame.tcloud.tCloudEval
+      depends WMGame.tcloud.tCdecision
     }
     
     task tCdeploy "Deployment in Cloud" {
