@@ -206,6 +206,9 @@ task WMGame "Web & Mobile Game" {
       effort 10d
       allocate dev1, dev4
       depends WMGame.tcloud.tCdecision
+      depends WMGame.tcloud.tCloudTests
+      depends WMGame.twebF.tFEc
+
     }
   }
 
