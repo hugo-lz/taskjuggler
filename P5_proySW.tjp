@@ -217,7 +217,7 @@ task WMGame "Web & Mobile Game" {
       actual:effort 20d
       depends WMGame.twebF
       depends WMGame.tback
-      depends WMGame.tmobF
+      depends WMGame.tmobile
       start 2025-05-15                # Nueva fecha límite #
       }
 
