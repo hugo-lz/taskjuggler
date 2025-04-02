@@ -19,7 +19,7 @@ project pSix "Web Game"  2024-12-15 +5m {
   # the project reports. If not specified, the current day will be
   # used, but this will likely be outside of the project range, so it
   # can't be seen in the reports.
-  now 2025-02-25-13:00
+  now 2025-04-02-12:00                  #  Actualización de la fecha actual  #
   # The currency for all money values is the US Dollar.
   currency "EUR"
 
@@ -68,6 +68,11 @@ resource dev2 "Samantha Müller" {
 resource dev3 "Peter Green" {
   email "kkk@unizar.es"
 }
+resource dev4 "Hugo López" {
+  email 875455@unizar.es
+  limits { dailymax 4h}
+}
+
 
 # Now we specify the work packages. The whole project is described as
 # a task that contains subtasks. These subtasks are then broken down
@@ -147,13 +152,73 @@ task WMGame "Web & Mobile Game" {
     }    
   }
 
+  ####################################  NUEVAS FUNCIONALIDADES  #################################
+  task tmobile "Mobile Front End" {
+    purge chargeset
+    chargeset mFront
+    responsible dev2, dev4
+    depends WMGame.tback.tBEd
+    
+    task tMdesign "Mobile UI Design" {
+      effort 7d
+      allocate dev2
+    }
+    
+    task tMdev "Mobile Development" {
+      effort 14d
+      allocate dev2, dev4
+      depends WMGame.tmobile.tMdesign
+    }
+    
+    task tMtest "Mobile Testing" {
+      effort 6d
+      allocate dev1
+      depends WMGame.tmobile.tMdev
+    }
+
+    # Aquí añado la incidencia/anotación del día 2025-04-02
+    journalentry 2025-04-02 "Incidencia registrada el día de hoy" {
+        author dev2
+        alert yellow
+        summary "Se ha añadido una incidencia para revisar el progreso del Mobile Front End."
+    }
+  }
+  
+  task tcloud "Cloud Deployment" {
+    purge chargeset
+    chargeset cloud
+    responsible boss
+    depends WMGame.tback
+    
+    task tCdecision "Cloud Provider Decision" {
+      effort 3d
+      allocate boss
+    }
+
+    task tCloudTests "Cloud Platform Testing" {
+      effort 5d
+      allocate dev1, dev4
+      depends WMGame.tcloud.tCloudEval
+    }
+    
+    task tCdeploy "Deployment in Cloud" {
+      effort 10d
+      allocate dev1, dev4
+      depends WMGame.tcloud.tCdecision
+    }
+  }
+
+  ####################################  FIN NUEVAS FUNCIONALIDADES  #################################
+
   task ttest "Acceptance tests" {
       effort 10d
       allocate boss
-      allocate dev2
+      allocate dev2, dev4
       actual:effort 20d
       depends WMGame.twebF
       depends WMGame.tback
+      depends WMGame.tmobF
+      start 2025-05-15                # Nueva fecha límite #
       }
 
     
@@ -183,6 +248,14 @@ task WMGame "Web & Mobile Game" {
     }
   }
 }
+
+
+########################################################  FIN NUEVO 1  #########################################
+
+
+
+
+
 
 # Now the project has been specified completely. Stopping here would
 # result in a valid TaskJuggler file that could be processed and
@@ -271,6 +344,18 @@ taskreport overview "" {
 }
 
 
+# Report for Initial Project Plan
+taskreport initialPlan "" {
+  headline "Initial Project Plan"
+  columns bsi { title 'WBS' },
+          name { width 150 }, start { width 100 }, end { width 100 },
+          effort { width 100 }, cost { width 100 }, status { width 100 }
+  scenarios plan
+  timeformat "%Y-%m-%d"
+  caption 'All effort values are in man days.'
+}
+
+
 # Macro to set the background color of a cell according to the alert
 # level of the task.
 macro AlertColor [
@@ -327,6 +412,8 @@ taskreport development "" {
   hideresource ~(isleaf() & isleaf_())
   sortresources name.up
 }
+
+
 
 # A list of all employees with their contact details.
 resourcereport contactList "" {
