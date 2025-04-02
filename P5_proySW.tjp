@@ -73,7 +73,6 @@ resource dev4 "Hugo López" {
   limits { dailymax 4h}
 }
 
-
 # Now we specify the work packages. The whole project is described as
 # a task that contains subtasks. These subtasks are then broken down
 # into smaller tasks and so on. The innermost tasks describe the real
