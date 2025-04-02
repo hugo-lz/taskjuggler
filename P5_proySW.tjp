@@ -213,7 +213,7 @@ task WMGame "Web & Mobile Game" {
   task ttest "Acceptance tests" {
       effort 10d
       allocate boss
-      allocate dev2, dev4
+      allocate dev2, dev 1, dev4
       actual:effort 20d
       depends WMGame.twebF
       depends WMGame.tback
