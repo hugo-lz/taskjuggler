@@ -199,6 +199,7 @@ task WMGame "Web & Mobile Game" {
       effort 5d
       allocate dev1, dev4
       depends WMGame.tcloud.tCdecision
+      depends WMGame.twebF.tFEc
     }
     
     task tCdeploy "Deployment in Cloud" {
@@ -218,6 +219,7 @@ task WMGame "Web & Mobile Game" {
       depends WMGame.twebF
       depends WMGame.tback
       depends WMGame.tmobile
+      depends WMGame.tcloud
       start 2025-05-15                # Nueva fecha límite #
       }
 
