@@ -330,6 +330,11 @@ textreport frame "" {
     title "Resource Graph"
     center '<[report id="resourceGraph"]>'
   }
+
+   textreport "initialPlan" {
+    formats html
+    center '<[report id="initialPlan"]>'
+  }
 }
 
 # A traditional Gantt chart with a project overview.
